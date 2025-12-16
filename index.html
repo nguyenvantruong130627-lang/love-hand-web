@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Start Camera Demo</title>
+  <meta charset="UTF-8" />
+  <title>Love Hand Web</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      text-align: center;
+    }
+    video {
+      width: 640px;
+      margin-top: 10px;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
+
 <body>
+  <h2>💖 Love Hand Web</h2>
 
-    <h2>Camera Test</h2>
+  <button id="startBtn">Start Camera</button>
+  <div id="status">Chưa bật camera</div>
 
-    <button id="startBtn">Start Camera</button>
-    <br><br>
+  <video id="video" autoplay playsinline></video>
 
-    <video id="video" autoplay playsinline></video>
+  <!-- MediaPipe -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 
-    <!-- NHÚNG FILE JS ĐÚNG CHỖ -->
-    <script src="camera.js"></script>
+  <!-- JS -->
+  <script src="main.js"></script>
 </body>
 </html>
