@@ -1,13 +1,45 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Test Assets</title>
+  <meta charset="UTF-8" />
+  <title>Love Hand Web</title>
+
+  <!-- MediaPipe -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+    }
+
+    video {
+      position: absolute;
+      left: -9999px; /* ẩn video gốc */
+    }
+
+    #status {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 24px;
+      background: rgba(0,0,0,0.6);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-family: sans-serif;
+    }
+  </style>
 </head>
+
 <body>
 
-  <h1>Test ảnh</h1>
-  <img src="assets/images/test.jpg" width="200">
+  <video id="video" autoplay playsinline></video>
+  <div id="status">Đang khởi động camera...</div>
 
+  <script src="main.js"></script>
 </body>
 </html>
