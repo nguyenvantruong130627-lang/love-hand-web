@@ -1,7 +1,10 @@
 const video = document.getElementById("video");
 const statusDiv = document.getElementById("status");
+const startBtn = document.getElementById("startBtn");
 
-// Khởi tạo MediaPipe Hands
+// ==================
+// 1. MediaPipe Hands
+// ==================
 const hands = new Hands({
   locateFile: (file) =>
     `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
@@ -14,14 +17,38 @@ hands.setOptions({
   minTrackingConfidence: 0.7,
 });
 
-// Hàm kiểm tra ngón tay có duỗi không
+// ==================
+// 2. Camera control
+// ==================
+const camera = new Camera(video, {
+  onFrame: async () => {
+    await hands.send({ image: video });
+  },
+  width: 640,
+  height: 480,
+});
+
+// BẮT BUỘC: bật camera bằng click
+startBtn.addEventListener("click", async () => {
+  try {
+    await camera.start();
+    statusDiv.innerText = "📷 Camera đang chạy...";
+  } catch (e) {
+    alert("Không mở được camera");
+    console.error(e);
+  }
+});
+
+// ==================
+// 3. Hand logic
+// ==================
 function isFingerOpen(tip, pip) {
   return tip.y < pip.y;
 }
 
 hands.onResults((results) => {
   if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
-    statusDiv.innerText = "Không thấy tay";
+    statusDiv.innerText = "❌ Không thấy tay";
     return;
   }
 
@@ -36,6 +63,12 @@ hands.onResults((results) => {
   const openCount = [thumb, index, middle, ring, pinky].filter(Boolean).length;
 
   if (openCount === 0) {
-    statusDiv.innerText = "✊ NẮM TAY";
-  } else if (openCount === 1 && index) {
+    statusDiv.innerText = "✊ NẮM TAY – CÂY THÔNG 🎄";
+  } 
+  else if (openCount === 1 && index) {
     statusDiv.innerText = "☝ CHỌN ẢNH";
+  } 
+  else {
+    statusDiv.innerText = "🖐 MỞ TAY – ẢNH XOAY ✨";
+  }
+});
