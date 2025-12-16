@@ -49,6 +49,8 @@ function isFingerOpen(tip, pip) {
   return tip.y < pip.y;
 }
 
+const tree = document.getElementById("tree");
+
 hands.onResults((results) => {
   if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
     statusDiv.innerText = "❌ Không thấy tay";
@@ -58,26 +60,29 @@ hands.onResults((results) => {
 
   const hand = results.multiHandLandmarks[0];
 
-  const thumb = isFingerOpen(hand[4], hand[3]);
-  const index = isFingerOpen(hand[8], hand[6]);
-  const middle = isFingerOpen(hand[12], hand[10]);
-  const ring = isFingerOpen(hand[16], hand[14]);
-  const pinky = isFingerOpen(hand[20], hand[18]);
+  // ĐẦU NGÓN
+  const tips = [8, 12, 16, 20];
+  // GỐC NGÓN
+  const mcps = [5, 9, 13, 17];
 
-  const openCount = [thumb, index, middle, ring, pinky].filter(Boolean).length;
+  let foldedFingers = 0;
 
-  if (openCount === 0) {
-    statusDiv.innerText = "✊ NẮM TAY – CÂY THÔNG NOEL 🎄";
-    tree.classList.remove("hidden");
-  } 
-  else {
-    tree.classList.add("hidden");
+  for (let i = 0; i < tips.length; i++) {
+    const tip = hand[tips[i]];
+    const mcp = hand[mcps[i]];
 
-    if (openCount === 1 && index) {
-      statusDiv.innerText = "☝ TRỎ TAY";
-    } else {
-      statusDiv.innerText = "🖐 MỞ TAY";
+    // Nếu đầu ngón thấp hơn gốc → đang co
+    if (tip.y > mcp.y) {
+      foldedFingers++;
     }
   }
-});
 
+  // 👉 NẮM TAY = ít nhất 3 ngón co
+  if (foldedFingers >= 3) {
+    statusDiv.innerText = "✊ NẮM TAY – CÂY NOEL 🎄";
+    tree.classList.remove("hidden");
+  } else {
+    tree.classList.add("hidden");
+    statusDiv.innerText = "🖐 MỞ / TRỎ TAY";
+  }
+});
