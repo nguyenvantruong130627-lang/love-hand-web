@@ -2,22 +2,37 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Love Hand Web</title>
+  <title>Love Hand Web 💖</title>
+
   <style>
     body {
       margin: 0;
       background: black;
       color: white;
       text-align: center;
+      font-family: Arial, sans-serif;
     }
+
+    h2 {
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
     video {
       width: 640px;
-      margin-top: 10px;
-    }
-    button {
-      font-size: 20px;
-      padding: 10px 20px;
-      margin-top: 20px;
+      margin-top: 15px;
+      transform: scaleX(-1); /* lật gương cho tự nhiên */
     }
   </style>
 </head>
@@ -32,11 +47,9 @@
 
   <!-- MediaPipe -->
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4/hands.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.min.js"></script>
 
-
-  <!-- JS -->
+  <!-- Main JS -->
   <script src="main.js"></script>
 </body>
 </html>
-
