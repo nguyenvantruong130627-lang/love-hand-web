@@ -1,3 +1,4 @@
+const tree = document.getElementById("tree");
 const video = document.getElementById("video");
 const startBtn = document.getElementById("startBtn");
 const statusDiv = document.getElementById("status");
@@ -51,6 +52,7 @@ function isFingerOpen(tip, pip) {
 hands.onResults((results) => {
   if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
     statusDiv.innerText = "❌ Không thấy tay";
+    tree.classList.add("hidden");
     return;
   }
 
@@ -65,12 +67,17 @@ hands.onResults((results) => {
   const openCount = [thumb, index, middle, ring, pinky].filter(Boolean).length;
 
   if (openCount === 0) {
-    statusDiv.innerText = "✊ NẮM TAY";
-  } 
-  else if (openCount === 1 && index) {
-    statusDiv.innerText = "☝ TRỎ TAY";
+    statusDiv.innerText = "✊ NẮM TAY – CÂY THÔNG NOEL 🎄";
+    tree.classList.remove("hidden");
   } 
   else {
-    statusDiv.innerText = "🖐 MỞ TAY";
+    tree.classList.add("hidden");
+
+    if (openCount === 1 && index) {
+      statusDiv.innerText = "☝ TRỎ TAY";
+    } else {
+      statusDiv.innerText = "🖐 MỞ TAY";
+    }
   }
 });
+
