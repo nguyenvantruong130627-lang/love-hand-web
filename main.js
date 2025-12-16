@@ -1,15 +1,14 @@
-const startBtn = document.getElementById("startBtn");
 const video = document.getElementById("video");
+const startBtn = document.getElementById("startBtn");
+const statusDiv = document.getElementById("status");
 
-startBtn.addEventListener("click", startCamera);
-
-function startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            video.srcObject = stream;
-        })
-        .catch(error => {
-            console.error("Camera error:", error);
-            alert("Không mở được camera, kiểm tra quyền hoặc console!");
-        });
-}
+startBtn.onclick = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    video.srcObject = stream;
+    statusDiv.innerText = "📷 Camera đã bật";
+  } catch (err) {
+    statusDiv.innerText = "❌ Không mở được camera";
+    console.error(err);
+  }
+};
